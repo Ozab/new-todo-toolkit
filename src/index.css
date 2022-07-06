@@ -1,66 +1,131 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  font-size: 2rem;
+  margin: 30px 0 50px 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(31, 129, 129);
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+
+.input {
+  width: 80%;
+  padding: 5px;
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  outline: none;
+  border: none;
+}
+
+.add {
+  width: 20%;
+  font-size: 1.3rem;
+  height: 35px;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #00ff7c;
+  border: 1px solid #00ff7c;
+  border-radius: 5px;
+  box-shadow: 0px 3px 0px #00823f;
+  transition: all ease 0.3s;
+}
+
+.add:active {
+  box-shadow: 0 2px 0 #00823f;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.cell {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  text-align: center;
+  align-items: center;
+}
+
+.textFavorite {
+  text-shadow: rgb(0, 115, 255) 0 0 10px;
+  border-bottom: 2px solid rgb(3, 84, 184);
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+}
+
+/* From uiverse.io by @mobinkakei */
+.loader {
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border-top: 5px solid #e74c3c;
+  position: relative;
+  animation: load 2s linear infinite;
+}
+
+.loader::before,.loader::after {
+  content: '';
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+
+.loader::before {
+  border-top: 5px solid #e67e22;
+  transform: rotate(120deg);
+}
+
+.loader::after {
+  border-top: 5px solid #3498db;
+  transform: rotate(240deg);
+}
+
+.loader span {
+  position: absolute;
+  font-size: small;
+  width: 100px;
+  height: 100px;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  text-align: center;
+  line-height: 100px;
+  animation: a2 2s linear infinite;
+}
+
+@keyframes load {
+  to {
+    transform: rotate(360deg);
   }
-  
-  .header {
-    font-size: 2rem;
-    margin: 30px 0 50px 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(31, 129, 129);
+}
+
+@keyframes a2 {
+  to {
+    transform: rotate(-360deg);
   }
-  
-  .main {
-    display: flex;
-    justify-content: space-between;
-    width: 40%;
-  }
-  
-  .input {
-    width: 80%;
-    padding: 5px;
-    font-size: 1.3rem;
-    margin-bottom: 25px;
-    outline: none;
-    border: none;
-  }
-  
-  .add {
-    width: 20%;
-    font-size: 1.3rem;
-    height: 35px;
-    cursor: pointer;
-    color: #ffffff;
-    background-color: #00ff7c;
-    border: 1px solid #00ff7c;
-    border-radius: 5px;
-    box-shadow: 0px 3px 0px #00823f;
-    transition: all ease 0.3s;
-  }
-  
-  .add:active {
-    box-shadow: 0 2px 0 #00823f;
-  }
-  
-  .footer {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-  }
-  
-  .cell {
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.3rem;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
-    text-align: center;
-    align-items: center;
-  }
-  
-  .textFavorite {
-    text-shadow: rgb(0, 115, 255) 0 0 10px;
-    border-bottom: 2px solid rgb(3, 84, 184);
-  }
+}
+ 

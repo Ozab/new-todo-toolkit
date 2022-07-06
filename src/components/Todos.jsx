@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Todo from "./Todo";
-import { useSelector, useDispatch } from "react-redux";
-import { addTodo } from "../features/todoReducer";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux/es/exports";
+import { addTodo, fetchTodos } from "../features/todos/todosSlice";
 
 const Todos = () => {
   const todos = useSelector((state) => state.todos);
+  const loading = useSelector((state) => state.loading);
+  const error = useSelector((state) => state.error);
   const [inputText, setInputText] = useState("");
   const dispatch = useDispatch();
 
-  //код для того, чтобы не выводилось одно и тоже дело
-  // const findTodos = todos.filter((item) => {
-  //   return setInputText === item.text;
-  // });
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]);
+
+  //!!код для того, чтобы не выводилось одно и тоже дело
+  const findTodos = todos.find((item) => {
+    return inputText === item.text;
+  });
 
   const hendleKeyPress = (e) => {
     const code = e.keyCode || e.which;
@@ -21,18 +28,29 @@ const Todos = () => {
   };
 
   const hendleAddition = () => {
-    if (inputText === "" || inputText === " ") {
-      alert("Ошибка в поле ввода!");
+    if (findTodos?.text === inputText) {
+      alert("Данная задача уже имеется. Введите новую задачу!");
       return setInputText("");
     }
-    // if (findTodos) {
-    //   alert("Данная задача уже имеется. Введите новую задачу!")
-    //   return setInputText("")
-    // }
+    //!!условие для того чтобы пустая строка и пробелы не добавлялись
+    if (inputText.trim().length) {
+      dispatch(addTodo(inputText));
+    }
     setInputText("");
-    dispatch(addTodo(inputText));
   };
 
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="loader">
+          <span>Loading...</span>
+        </div>
+      </div>
+    );
+  }
+  if (error) {
+    return <div className="error">error...</div>;
+  }
   return (
     <div className="container">
       <div className="header">Todo-List</div>
@@ -45,13 +63,13 @@ const Todos = () => {
           onChange={(e) => setInputText(e.target.value)}
           onKeyPress={(e) => hendleKeyPress(e)}
         />
-        <button onClick={(e) => hendleAddition(e)} className="add">
+        <button onClick={hendleAddition} className="add">
           add
         </button>
       </div>
       <div className="footer">
-        {todos.map((item, id) => {
-          return <Todo todo={item} key={item.id} text={item.text} id={id} />;
+        {todos.map((item, _id) => {
+          return <Todo todo={item} key={_id} text={item.text} />;
         })}
       </div>
     </div>
