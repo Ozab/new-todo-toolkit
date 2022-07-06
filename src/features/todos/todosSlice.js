@@ -94,9 +94,18 @@ export const todosSlice = createSlice({
         state.loading = false;
       });
     //!!Добавление новых дел
-    builder.addCase(addTodo.fulfilled, (state, action) => {
-      state.todos.unshift(action.payload);
-    });
+    builder
+      .addCase(addTodo.fulfilled, (state, action) => {
+        state.todos.unshift(action.payload);
+      })
+      .addCase(addTodo.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(addTodo.rejected, (state) => {
+        state.error = true;
+        state.loading = false;
+      });
     //!!Удаление дел
     builder
       .addCase(removeTodos.fulfilled, (state, action) => {
@@ -115,59 +124,27 @@ export const todosSlice = createSlice({
         state.loading = false;
       });
     //!!Выделение дел
-    builder.addCase(completedTodo.fulfilled, (state, action) => {
-      state.todos.map((item) => {
-        if (item._id === action.payload._id) {
-          item.completed = !item.completed;
-          return action.payload;
-        }
-        return item;
+    builder
+      .addCase(completedTodo.fulfilled, (state, action) => {
+        state.todos.map((item) => {
+          if (item._id === action.payload._id) {
+            item.completed = !item.completed;
+            return action.payload;
+          }
+          return item;
+        });
+        state.loading = false;
+        state.error = false;
+      })
+      .addCase(completedTodo.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(completedTodo.rejected, (state) => {
+        state.error = true;
+        state.loading = false;
       });
-      // state.loading = false;
-      // state.error = false;
-    });
-    // .addCase(completedTodo.pending, (state, action) => {
-    //   console.log(action);
-    //     state.todos.map((item) => {
-    //       if (state.loading === action.meta.arg) {
-    //         return action.meta.arg;
-    //       }
-    //       return item;
-    //     });
-    //   });
-    // .addCase(removeTodos.rejected, (state) => {
-    //   state.error = true;
-    //   state.loading = false;
-    // });
   },
 });
 
 export default todosSlice.reducer;
-
-// (initialState, (builder) => {
-//   builder
-//     .addCase(addTodo, (state, action) => {
-//       state.todos.unshift({
-//         text: action.payload,
-//         favorite: false,
-//         id: new Date(),
-//       });
-//     })
-//     .addCase(favor, (state, action) => {
-//       state.todos.map((item, id) => {
-//         if (id === action.payload) {
-//           item.favorite = !item.favorite;
-//           return item;
-//         }
-//         return item;
-//       });
-//     })
-//     .addCase(del, (state, action) => {
-//       state.todos = state.todos.filter((item, id) => {
-//             if (id === action.payload) {
-//               return false;
-//             }
-//             return true;
-//           })
-//     });
-// });
