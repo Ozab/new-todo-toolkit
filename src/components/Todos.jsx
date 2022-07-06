@@ -6,7 +6,6 @@ import { addTodo, fetchTodos } from "../features/todos/todosSlice";
 
 const Todos = () => {
   const todos = useSelector((state) => state.todos);
-  const loading = useSelector((state) => state.loading);
   const error = useSelector((state) => state.error);
   const [inputText, setInputText] = useState("");
   const dispatch = useDispatch();
@@ -39,15 +38,6 @@ const Todos = () => {
     setInputText("");
   };
 
-  if (loading) {
-    return (
-      <div className="loading">
-        <div className="loader">
-          <span>Loading...</span>
-        </div>
-      </div>
-    );
-  }
   if (error) {
     return <div className="error">error...</div>;
   }

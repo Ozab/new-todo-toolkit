@@ -97,6 +97,8 @@ export const todosSlice = createSlice({
     builder
       .addCase(addTodo.fulfilled, (state, action) => {
         state.todos.unshift(action.payload);
+        state.loading = false;
+        state.error = false;
       })
       .addCase(addTodo.pending, (state) => {
         state.loading = true;
