@@ -12,7 +12,6 @@ const Todo = ({ todo, text }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
 
-
   const hendleChek = (todo) => {
     dispatch(completedTodo(todo));
   };
@@ -40,7 +39,7 @@ const Todo = ({ todo, text }) => {
         onClick={() => hendleChek(todo)}
         checked={todo.completed}
       />
-      <div className={`todo ${todo.completed ? "textFavorite" : ""}`}>
+      <div className={`todo ${todo.completed ? "textFavorite" : "main-input"}`}>
         {text}
       </div>
       <IconButton
@@ -48,6 +47,7 @@ const Todo = ({ todo, text }) => {
         aria-label="delete"
         onClick={handleDelete}
         size="large"
+        disabled={todo.deleting}
       >
         <DeleteIcon />
       </IconButton>

@@ -26,6 +26,12 @@
   border: none;
 }
 
+.main-input {
+  width: 80%;
+  padding: 9px 0;
+  word-wrap: break-word;
+}
+
 .add {
   width: 20%;
   font-size: 1.3rem;
@@ -57,12 +63,15 @@
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   text-align: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .textFavorite {
   text-shadow: rgb(0, 115, 255) 0 0 10px;
   border-bottom: 2px solid rgb(3, 84, 184);
+  width: 80%;
+  padding: 9px 0;
+  word-wrap: break-word;
 }
 
 .loading {
@@ -84,8 +93,9 @@
   animation: load 2s linear infinite;
 }
 
-.loader::before,.loader::after {
-  content: '';
+.loader::before,
+.loader::after {
+  content: "";
   width: 100px;
   height: 100px;
   position: absolute;
@@ -128,4 +138,3 @@
     transform: rotate(-360deg);
   }
 }
- 

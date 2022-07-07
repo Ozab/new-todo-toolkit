@@ -117,8 +117,13 @@ export const todosSlice = createSlice({
         state.loading = false;
         state.error = false;
       })
-      .addCase(removeTodos.pending, (state) => {
-        state.loading = true;
+      .addCase(removeTodos.pending, (state, action) => {
+        state.todos.map((item) => {
+          if (item._id === action.meta.arg) {
+            item.deleting = true;
+          }
+          return item;
+        });
         state.error = false;
       })
       .addCase(removeTodos.rejected, (state) => {
